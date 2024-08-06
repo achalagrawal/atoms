@@ -13,13 +13,13 @@ function Nucleus({ protons, neutrons }: { protons: number; neutrons: number }) {
   const ref = useRef<THREE.Group>(null);
   useFrame(() => {
     if (ref.current) {
-      ref.current.rotation.x += 0.01;
-      ref.current.rotation.y += 0.01;
+      ref.current.rotation.x += 0.05;
+      ref.current.rotation.y += 0.05;
     }
   });
 
   const nucleons = [...Array(protons + neutrons)].map((_, i) => (
-    <Sphere key={i} args={[0.08, 32, 32]} position={[
+    <Sphere key={i} args={[0.1, 32, 32]} position={[
       (Math.random() - 0.5) * 0.2,
       (Math.random() - 0.5) * 0.2,
       (Math.random() - 0.5) * 0.2
@@ -41,7 +41,7 @@ function Electron({ position }: { position: [number, number, number] }) {
   });
 
   return (
-    <Sphere ref={ref} args={[0.05, 32, 32]} position={position}>
+    <Sphere ref={ref} args={[0.1, 32, 32]} position={position}>
       <meshPhongMaterial color={Colors.pink} transparent opacity={0.8} />
     </Sphere>
   );
@@ -70,7 +70,7 @@ function calculateElectronPositions(atom: Atom, baseRadius: number): [number, nu
 
 function AtomStructure({ atom }: { atom: Atom }) {
   const { size } = useThree();
-  const baseRadius = Math.min(size.width, size.height) / 16;
+  const baseRadius = Math.min(size.width, size.height) / 128;
 
   const electronPositions = calculateElectronPositions(atom, baseRadius);
 
